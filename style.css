@@ -1,0 +1,172 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+  text-align: center;
+  overflow: hidden;
+}
+body {
+  perspective: 1000px;
+}
+
+.box {
+  width: 220px;
+  height: 160px;
+  position: relative;
+  margin: 50px auto;
+}
+
+.flap {
+  width: 100%;
+  height: 80px;
+  background: #8b4513;
+  transform-origin: top;
+  transform: rotateX(0deg);
+  transition: transform 2.5s ease-in-out; /* slow opening */
+  position: relative;
+  overflow: visible;
+}
+
+/* Chocolate attached inside flap */
+.chocolate {
+  width: 120px;
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  opacity: 0;
+  transition: transform 1.5s ease-out, opacity 0.8s;
+}
+
+/* When chocolate explodes */
+.chocolate.show {
+  transform: translateX(-50%) translateY(40px) scale(1.3);
+  opacity: 1;
+}
+
+h2 {
+  color: white;
+  margin-top: 20px;
+}
+
+.scene {
+  perspective: 1400px;
+}
+
+.box {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 140px auto;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+/* LAYERS */
+.layer {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.layer:nth-child(1) { transform: scale(1); }
+.layer:nth-child(2) { transform: scale(0.82); }
+.layer:nth-child(3) { transform: scale(0.64); }
+.layer:nth-child(4) { transform: scale(0.46); }
+
+/* FLAPS */
+.flap {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  background: #fff;
+  border: 2px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  backface-visibility: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+  transition: transform 1.5s ease;
+}
+
+.top    { transform-origin: bottom; }
+.bottom { transform-origin: top; }
+.left   { transform-origin: right; }
+.right  { transform-origin: left; }
+
+/* OPEN */
+.layer.open .top    { transform: rotateX(-120deg) translateY(-160px); }
+.layer.open .bottom { transform: rotateX(120deg) translateY(160px); }
+.layer.open .left   { transform: rotateY(120deg) translateX(-160px); }
+.layer.open .right  { transform: rotateY(-120deg) translateX(160px); }
+
+/* CENTER */
+.center {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg,#ff006e,#8338ec);
+  border-radius: 16px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: 0.8s ease;
+}
+
+.center.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.center-photo {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 6px;
+}
+
+/* PIGS */
+.pig {
+  position: fixed;
+  width: 60px;
+  display: none;
+  z-index: 50;
+}
+
+.top-left { top: 10px; left: 10px; }
+.top-right { top: 10px; right: 10px; }
+.bottom-left { bottom: 10px; left: 10px; }
+.bottom-right { bottom: 10px; right: 10px; }
+
+/* CAKE */
+.cake-area {
+  position: fixed;
+  bottom: 65px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  gap: 12px;
+}
+
+.cake, .woman {
+  width: 65px;
+}
+
+/* BUTTERFLIES */
+.butterfly {
+  position: fixed;
+  width: 28px;
+  pointer-events: none;
+  animation: fly 6s linear forwards;
+}
+
+@keyframes fly {
+  from { transform: translate(0,0) scale(0.6); opacity: 1; }
+  to   { transform: translate(var(--x), var(--y)) scale(1.1); opacity: 0; }
+}
