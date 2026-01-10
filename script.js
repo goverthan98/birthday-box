@@ -43,7 +43,7 @@ box.addEventListener("click", () => {
 function releaseButterflies() {
   for (let i = 0; i < 16; i++) {
     const b = document.createElement("img");
-    b.src = "images/butterflies.jpeg";
+    b.src = "butterflies.jpeg";
     b.className = "butterfly";
 
     const angle = Math.random() * Math.PI * 2;
